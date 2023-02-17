@@ -55,6 +55,7 @@ class _RegisterViewState extends State<RegisterView> {
               hintText: 'Password',
             ),
           ),
+          const SizedBox(height: 25),
           TextButton(
             child: const Text('Register'),
             onPressed: () async {
