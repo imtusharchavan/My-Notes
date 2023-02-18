@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:mynotes/constants/routes.dart';
+import 'package:mynotes/services/auth/auth_service.dart';
+import 'package:mynotes/views/auth/logout_dialog.dart';
 
 class NabBar extends StatelessWidget {
   const NabBar({super.key});
@@ -63,6 +64,20 @@ class NabBar extends StatelessWidget {
             title: const Text('Settings'),
             onTap: () {
               Navigator.of(context).pushNamed(settingsRoute);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.logout_outlined),
+            title: const Text('Log out'),
+            onTap: () async {
+              final shouldLogout = await showLogOutDialog(context);
+                  if (shouldLogout) {
+                    await AuthService.firebase().logOut();
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      loginRoute,
+                      (_) => false,
+                    );
+                  }
             },
           ),
         ],
