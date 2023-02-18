@@ -33,79 +33,82 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
-      body: Column(
-        children: [
-          TextField(
-            controller: _email,
-            keyboardType: TextInputType.emailAddress,
-            enableSuggestions: false,
-            autocorrect: false,
-            decoration: const InputDecoration(
-              hintText: 'Email',
+      body: SafeArea(
+        child: Column(
+          children: [
+            TextField(
+              controller: _email,
+              keyboardType: TextInputType.emailAddress,
+              enableSuggestions: false,
+              autocorrect: false,
+              decoration: const InputDecoration(
+                hintText: 'Email',
+              ),
             ),
-          ),
-          TextField(
-            controller: _password,
-            obscureText: true,
-            enableSuggestions: false,
-            autocorrect: false,
-            decoration: const InputDecoration(
-              hintText: 'Password',
+            TextField(
+              controller: _password,
+              obscureText: true,
+              enableSuggestions: false,
+              autocorrect: false,
+              decoration: const InputDecoration(
+                hintText: 'Password',
+              ),
             ),
-          ),
-          const SizedBox(height: 25),
-          TextButton(
-            child: const Text('Login'),
-            onPressed: () async {
-              final email = _email.text;
-              final password = _password.text;
-              try {
-                await AuthService.firebase().logIn(
-                  email: email,
-                  password: password,
-                );
-                final user = AuthService.firebase().currentUser;
-                if (user?.isEmailVerified ?? false) {
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                    notesRoute,
-                    (route) => false,
+            const SizedBox(height: 25),
+            FilledButton(
+              style: FilledButton.styleFrom(
+                  backgroundColor: Colors.blueGrey.shade800),
+              onPressed: () async {
+                final email = _email.text;
+                final password = _password.text;
+                try {
+                  await AuthService.firebase().logIn(
+                    email: email,
+                    password: password,
                   );
-                } else {
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                    verifyEmailRoute,
-                    (route) => false,
-                  );
-                }
-              } on UserNotFoundAuthException {
-                await showErrorDialog(
+                  final user = AuthService.firebase().currentUser;
+                  if (user?.isEmailVerified ?? false) {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      notesRoute,
+                      (route) => false,
+                    );
+                  } else {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      verifyEmailRoute,
+                      (route) => false,
+                    );
+                  }
+                } on UserNotFoundAuthException {
+                  await showErrorDialog(
                     context,
                     'User not found',
                   );
-              } on WrongPasswordAuthException {
-                await showErrorDialog(
+                } on WrongPasswordAuthException {
+                  await showErrorDialog(
                     context,
                     'Incorrect password',
                   );
-              } on GenericAuthException {
-                await showErrorDialog(
-                  context,
-                  'Authentication error',
-                );
-              }
-            },
-          ),
-          TextButton(
+                } on GenericAuthException {
+                  await showErrorDialog(
+                    context,
+                    'Authentication error',
+                  );
+                }
+              },
+              child: const Text('Login'),
+            ),
+            TextButton(
               onPressed: () {
                 Navigator.of(context).pushNamedAndRemoveUntil(
                   registerRoute,
                   (route) => false,
                 );
               },
-              child: const Text("Don't have an account?"))
-        ],
+              child: Text("Don't have an account?",
+                  style: TextStyle(color: Colors.blue.shade700)),
+            ),
+          ],
+        ),
       ),
     );
   }

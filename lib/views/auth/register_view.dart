@@ -33,75 +33,79 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Register'),
-      ),
-      body: Column(
-        children: [
-          TextField(
-            controller: _email,
-            keyboardType: TextInputType.emailAddress,
-            enableSuggestions: false,
-            autocorrect: false,
-            decoration: const InputDecoration(
-              hintText: 'Email',
+      body: SafeArea(
+        child: Column(
+          children: [
+            TextField(
+              controller: _email,
+              keyboardType: TextInputType.emailAddress,
+              enableSuggestions: false,
+              autocorrect: false,
+              decoration: const InputDecoration(
+                hintText: 'Email',
+              ),
             ),
-          ),
-          TextField(
-            controller: _password,
-            obscureText: true,
-            enableSuggestions: false,
-            autocorrect: false,
-            decoration: const InputDecoration(
-              hintText: 'Password',
+            TextField(
+              controller: _password,
+              obscureText: true,
+              enableSuggestions: false,
+              autocorrect: false,
+              decoration: const InputDecoration(
+                hintText: 'Password',
+              ),
             ),
-          ),
-          const SizedBox(height: 25),
-          TextButton(
-            child: const Text('Register'),
-            onPressed: () async {
-              final email = _email.text;
-              final password = _password.text;
-              try {
-                await AuthService.firebase().createUser(
-                  email: email,
-                  password: password,
-                );
-                AuthService.firebase().sendEmailVerification();
-                Navigator.of(context).pushNamed(verifyEmailRoute);
-              } on WeakPasswordAuthException {
-                await showErrorDialog(
+            const SizedBox(height: 25),
+            FilledButton(
+              style: FilledButton.styleFrom(
+                  backgroundColor: Colors.blueGrey.shade800),
+              onPressed: () async {
+                final email = _email.text;
+                final password = _password.text;
+                try {
+                  await AuthService.firebase().createUser(
+                    email: email,
+                    password: password,
+                  );
+                  AuthService.firebase().sendEmailVerification();
+                  Navigator.of(context).pushNamed(verifyEmailRoute);
+                } on WeakPasswordAuthException {
+                  await showErrorDialog(
                     context,
                     'Weak password',
                   );
-              } on EmailAlreadyInUseAuthException {
-                await showErrorDialog(
+                } on EmailAlreadyInUseAuthException {
+                  await showErrorDialog(
                     context,
                     'Email already in use',
                   );
-              } on InvalidEmailAuthException {
-                await showErrorDialog(
+                } on InvalidEmailAuthException {
+                  await showErrorDialog(
                     context,
                     'Invalid email address',
                   );
-              } on GenericAuthException {
-                await showErrorDialog(
-                  context,
-                  'Failed to register',
+                } on GenericAuthException {
+                  await showErrorDialog(
+                    context,
+                    'Failed to register',
+                  );
+                }
+              },
+              child: const Text('Register'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  loginRoute,
+                  (route) => false,
                 );
-              }
-            },
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                loginRoute,
-                (route) => false,
-              );
-            },
-            child: const Text('Already have an account?'),
-          ),
-        ],
+              },
+              child: Text(
+                'Already have an account?',
+                style: TextStyle(color: Colors.blue.shade700),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
