@@ -26,11 +26,11 @@ class _RemindersViewState extends State<RemindersView> {
         backgroundColor: Colors.white10,
         actions: const [
           Padding(
-            padding: EdgeInsets.all(12.0),
+            padding: EdgeInsets.only(right: 20),
             child: Icon(Icons.search_outlined),
           ),
           Padding(
-            padding: EdgeInsets.all(12.0),
+            padding: EdgeInsets.only(right: 12),
             child: Icon(Icons.grid_view_outlined),
           ),
         ],

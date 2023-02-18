@@ -24,6 +24,12 @@ class _NotesViewState extends State<NotesView> {
         iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0,
         backgroundColor: Colors.white10,
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 12),
+            child: Icon(Icons.grid_view_outlined),
+          ),
+        ],
       ),
     );
   }
