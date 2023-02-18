@@ -1,18 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mynotes/constants/routes.dart';
 import 'package:mynotes/services/auth/auth_service.dart';
-import 'package:mynotes/views/login_view.dart';
-import 'package:mynotes/views/notes_view.dart';
-import 'package:mynotes/views/register_view.dart';
-import 'package:mynotes/views/verify_email_view.dart';
+import 'package:mynotes/views/archive/archive_view.dart';
+import 'package:mynotes/views/auth/login_view.dart';
+import 'package:mynotes/views/labels/create_new_lable.dart';
+import 'package:mynotes/views/notes/notes_view.dart';
+import 'package:mynotes/views/auth/register_view.dart';
+import 'package:mynotes/views/auth/verify_email_view.dart';
+import 'package:mynotes/views/reminders/reminders_view.dart';
+import 'package:mynotes/views/settings/settings_view.dart';
+import 'package:mynotes/views/trash/trash_view.dart';
 
 void main() async {
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+  ));
   WidgetsFlutterBinding.ensureInitialized;
   runApp(
     MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.grey,
+        fontFamily: 'OpenSans',
+        dividerColor: Colors.transparent,
       ),
       home: const HomePage(),
       routes: {
@@ -20,6 +31,11 @@ void main() async {
         registerRoute: (context) => const RegisterView(),
         notesRoute: (context) => const NotesView(),
         verifyEmailRoute: (context) => const VerifyEmailView(),
+        remindersRoute:(context) => const RemindersView(),
+        createNewLabelRoute:(context) => const CreateNewLabel(),
+        archiveRoute:(context) => const ArchiveView(),
+        trashRoute:(context) => const TrashView(),
+        settingsRoute:(context) => const SettingsView(),
       },
     ),
   );
