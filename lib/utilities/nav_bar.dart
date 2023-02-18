@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:mynotes/constants/routes.dart';
 
 class NabBar extends StatelessWidget {
   const NabBar({super.key});
-  
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +29,6 @@ class NabBar extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pushNamed(notesRoute);
             },
-            selected: true,
-            selectedColor: Colors.amber,
           ),
           ListTile(
             leading: const Icon(Icons.notifications_outlined),
