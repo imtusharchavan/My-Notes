@@ -3,6 +3,7 @@ import 'package:mynotes/constants/routes.dart';
 
 class NabBar extends StatelessWidget {
   const NabBar({super.key});
+  
 
   @override
   Widget build(BuildContext context) {
@@ -10,10 +11,16 @@ class NabBar extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
-            child: Text(
-              'My Notes',
-              style: TextStyle(fontSize: 20),
+          const SizedBox(
+            height: 120,
+            child: DrawerHeader(
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  'My Notes',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
             ),
           ),
           ListTile(
@@ -22,6 +29,8 @@ class NabBar extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pushNamed(notesRoute);
             },
+            selected: true,
+            selectedColor: Colors.amber,
           ),
           ListTile(
             leading: const Icon(Icons.notifications_outlined),
@@ -40,17 +49,23 @@ class NabBar extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.archive_outlined),
             title: const Text('Archive'),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed(archiveRoute);
+            },
           ),
           ListTile(
             leading: const Icon(Icons.delete_outlined),
             title: const Text('Trash'),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed(trashRoute);
+            },
           ),
           ListTile(
             leading: const Icon(Icons.settings_outlined),
             title: const Text('Settings'),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed(settingsRoute);
+            },
           ),
         ],
       ),
