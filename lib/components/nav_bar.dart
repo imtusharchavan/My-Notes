@@ -71,14 +71,14 @@ class NabBar extends StatelessWidget {
             title: const Text('Log out'),
             onTap: () async {
               Navigator.of(context).pop();
-              final shouldLogout = await showLogOutDialog(context);
-              if (shouldLogout) {
-                await AuthService.firebase().logOut();
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                  loginRoute,
-                  (_) => false,
-                );
-              }
+              // final shouldLogout = await showLogOutDialog(context);
+              // if (shouldLogout) {
+              //   await AuthService.firebase().logOut();
+              //   Navigator.of(context).pushNamedAndRemoveUntil(
+              //     loginRoute,
+              //     (_) => false,
+              //   );
+              // }
             },
           ),
         ],
