@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mynotes/utilities/nav_bar.dart';
+import 'package:mynotes/components/nav_bar.dart';
 
 class NotesView extends StatefulWidget {
   const NotesView({super.key});
