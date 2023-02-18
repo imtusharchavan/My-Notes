@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mynotes/constants/routes.dart';
 import 'package:mynotes/enums/menu_action.dart';
 import 'package:mynotes/services/auth/auth_service.dart';
+import 'package:mynotes/utilities/nav_bar.dart';
 
 class NotesView extends StatefulWidget {
   const NotesView({super.key});
@@ -14,8 +15,18 @@ class _NotesViewState extends State<NotesView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const NabBar(),
       appBar: AppBar(
-        title: const Text('My Notes'),
+        title: const Text(
+          'Notes',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+          ),
+        ),
+        iconTheme: const IconThemeData(color: Colors.black),
+        elevation: 0,
+        backgroundColor: Colors.white10,
         actions: [
           PopupMenuButton<MenuAction>(
             onSelected: (value) async {
@@ -42,7 +53,6 @@ class _NotesViewState extends State<NotesView> {
           ),
         ],
       ),
-      body: const Text('Notes will be displayed here'),
     );
   }
 }
