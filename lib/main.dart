@@ -22,10 +22,11 @@ void main() async {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.amber,
+        primarySwatch: Colors.grey,
         fontFamily: 'OpenSans',
         dividerColor: Colors.transparent,
-        iconTheme: const IconThemeData(color: Colors.black),
+        iconTheme: IconThemeData(color: Colors.grey.shade800),
+        hintColor: Colors.grey,
       ),
       home: const HomePage(),
       routes: {
