@@ -19,7 +19,6 @@ class _SettingsViewState extends State<SettingsView> {
             fontSize: 18,
           ),
         ),
-        iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0,
         backgroundColor: Colors.white10,
       ),

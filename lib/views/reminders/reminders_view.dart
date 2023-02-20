@@ -21,17 +21,16 @@ class _RemindersViewState extends State<RemindersView> {
             fontSize: 18,
           ),
         ),
-        iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0,
         backgroundColor: Colors.white10,
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 20),
-            child: Icon(Icons.search_outlined),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.search_outlined),
           ),
-          Padding(
-            padding: EdgeInsets.only(right: 12),
-            child: Icon(Icons.grid_view_outlined),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.grid_view_outlined),
           ),
         ],
       ),

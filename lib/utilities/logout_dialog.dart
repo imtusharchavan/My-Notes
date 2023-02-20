@@ -5,7 +5,7 @@ Future<bool> showLogOutDialog(BuildContext context) {
     context: context,
     builder: (context) {
       return AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(29)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30))),
         content: const Padding(
           padding: EdgeInsets.only(right: 32),
           child: Text('Are you sure you want to log out?'),

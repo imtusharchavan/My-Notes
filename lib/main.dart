@@ -5,6 +5,7 @@ import 'package:mynotes/services/auth/auth_service.dart';
 import 'package:mynotes/views/archive/archive_view.dart';
 import 'package:mynotes/views/auth/login_view.dart';
 import 'package:mynotes/views/labels/create_new_lable.dart';
+import 'package:mynotes/views/notes/new_note_view.dart';
 import 'package:mynotes/views/notes/notes_view.dart';
 import 'package:mynotes/views/auth/register_view.dart';
 import 'package:mynotes/views/auth/verify_email_view.dart';
@@ -21,15 +22,17 @@ void main() async {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.grey,
+        primarySwatch: Colors.amber,
         fontFamily: 'OpenSans',
         dividerColor: Colors.transparent,
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
       home: const HomePage(),
       routes: {
         loginRoute: (context) => const LoginView(),
         registerRoute: (context) => const RegisterView(),
         notesRoute: (context) => const NotesView(),
+        newNoteRoute:(context) => const NewNoteView(),
         verifyEmailRoute: (context) => const VerifyEmailView(),
         remindersRoute:(context) => const RemindersView(),
         createNewLabelRoute:(context) => const CreateNewLabel(),

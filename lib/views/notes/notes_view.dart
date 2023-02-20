@@ -35,14 +35,11 @@ class _NotesViewState extends State<NotesView> {
     return Scaffold(
       drawer: const NabBar(),
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0,
         backgroundColor: Colors.white10,
         actions: [
-          const Padding(
-            padding: EdgeInsets.only(right: 12),
-            child: Icon(Icons.grid_view_outlined),
-          ),
+          IconButton(
+              onPressed: () {}, icon: const Icon(Icons.grid_view_outlined)),
           PopupMenuButton<MenuAction>(
             onSelected: (value) async {
               switch (value) {
@@ -88,6 +85,46 @@ class _NotesViewState extends State<NotesView> {
               return const CircularProgressIndicator();
           }
         },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed(newNoteRoute);
+        },
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(18))),
+        backgroundColor: Colors.grey.shade200,
+        child: const Icon(Icons.add),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        notchMargin: 5,
+        shape: const AutomaticNotchedShape(
+          RoundedRectangleBorder(
+              borderRadius: BorderRadius.zero),
+          RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(bottom: Radius.circular(18))),
+        ),
+        color: Colors.grey.shade200,
+        child: Row(
+          children: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.check_box_outlined),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.brush_outlined),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.mic_none_outlined),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.insert_photo_outlined),
+            ),
+          ],
+        ),
       ),
     );
   }
