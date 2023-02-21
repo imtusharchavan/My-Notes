@@ -24,11 +24,11 @@ class _NotesViewState extends State<NotesView> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    _notesService.close();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _notesService.close();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +76,34 @@ class _NotesViewState extends State<NotesView> {
                   switch (snapshot.connectionState) {
                     case ConnectionState.waiting:
                     case ConnectionState.active:
-                      return const Text('Waiting for notes...');
+                      if (snapshot.hasData) {
+                        final allNotes = snapshot.data as List<DatabaseNote>;
+                        return ListView.builder(
+                          padding: const EdgeInsets.all(4.0),
+                          itemCount: allNotes.length,
+                          itemBuilder: (context, index) {
+                            final note = allNotes[index];
+                            return Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: ListTile(
+                                shape: RoundedRectangleBorder(
+                                  side: BorderSide(width: 1, color: Colors.grey.shade400),
+                                  borderRadius:
+                                      BorderRadius.circular(12),
+                                ),
+                                title: Text(
+                                  note.text,
+                                  maxLines: 10,
+                                  softWrap: true,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      } else {
+                        return const CircularProgressIndicator();
+                      }
                     default:
                       return const CircularProgressIndicator();
                   }
@@ -98,10 +125,9 @@ class _NotesViewState extends State<NotesView> {
         child: const Icon(Icons.add),
       ),
       bottomNavigationBar: BottomAppBar(
-        notchMargin: 5,
+        notchMargin: 4,
         shape: const AutomaticNotchedShape(
-          RoundedRectangleBorder(
-              borderRadius: BorderRadius.zero),
+          RoundedRectangleBorder(borderRadius: BorderRadius.zero),
           RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(18))),
         ),
