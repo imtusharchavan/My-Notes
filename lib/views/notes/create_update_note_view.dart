@@ -53,7 +53,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
       return existingNote;
     }
     final currentUser = AuthService.firebase().currentUser!;
-    final email = currentUser.email!;
+    final email = currentUser.email;
     final owner = await _notesService.getUser(email: email);
     final newNote = await _notesService.createNote(owner: owner);
     _note = newNote;
@@ -143,11 +143,6 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
             IconButton(
               onPressed: () {},
               icon: const Icon(Icons.palette_outlined),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.more_vert_outlined),
-              padding: const EdgeInsets.only(left: 280),
             ),
           ],
         ),

@@ -15,7 +15,7 @@ import 'package:mynotes/views/trash/trash_view.dart';
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
+    statusBarColor: Colors.white70,
   ));
   WidgetsFlutterBinding.ensureInitialized;
   runApp(
