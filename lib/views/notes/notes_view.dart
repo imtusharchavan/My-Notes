@@ -1,11 +1,11 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mynotes/components/nav_bar.dart';
 import 'package:mynotes/constants/routes.dart';
 import 'package:mynotes/enums/menu_action.dart';
 import 'package:mynotes/services/auth/auth_service.dart';
 import 'package:mynotes/services/crud/notes_service.dart';
-import 'package:mynotes/utilities/logout_dialog.dart';
+import 'package:mynotes/utilities/dialogs/logout_dialog.dart';
+import 'package:mynotes/views/notes/notes_list_view.dart';
 
 class NotesView extends StatefulWidget {
   const NotesView({super.key});
@@ -24,12 +24,6 @@ class _NotesViewState extends State<NotesView> {
     super.initState();
   }
 
-  // @override
-  // void dispose() {
-  //   _notesService.close();
-  //   super.dispose();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +31,13 @@ class _NotesViewState extends State<NotesView> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white10,
+        title: const Text(
+          'Notes',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+          ),
+        ),
         actions: [
           IconButton(
               onPressed: () {}, icon: const Icon(Icons.grid_view_outlined)),
@@ -78,27 +79,10 @@ class _NotesViewState extends State<NotesView> {
                     case ConnectionState.active:
                       if (snapshot.hasData) {
                         final allNotes = snapshot.data as List<DatabaseNote>;
-                        return ListView.builder(
-                          padding: const EdgeInsets.all(4.0),
-                          itemCount: allNotes.length,
-                          itemBuilder: (context, index) {
-                            final note = allNotes[index];
-                            return Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: ListTile(
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(width: 1, color: Colors.grey.shade400),
-                                  borderRadius:
-                                      BorderRadius.circular(12),
-                                ),
-                                title: Text(
-                                  note.text,
-                                  maxLines: 10,
-                                  softWrap: true,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            );
+                        return NotesListView(
+                          notes: allNotes,
+                          onDeleteNote: (note) async {
+                            await _notesService.deleteNote(id: note.id);
                           },
                         );
                       } else {
