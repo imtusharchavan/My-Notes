@@ -5,7 +5,7 @@ import 'package:mynotes/services/auth/auth_service.dart';
 import 'package:mynotes/views/archive/archive_view.dart';
 import 'package:mynotes/views/auth/login_view.dart';
 import 'package:mynotes/views/labels/create_new_lable.dart';
-import 'package:mynotes/views/notes/new_note_view.dart';
+import 'package:mynotes/views/notes/create_update_note_view.dart';
 import 'package:mynotes/views/notes/notes_view.dart';
 import 'package:mynotes/views/auth/register_view.dart';
 import 'package:mynotes/views/auth/verify_email_view.dart';
@@ -33,13 +33,13 @@ void main() async {
         loginRoute: (context) => const LoginView(),
         registerRoute: (context) => const RegisterView(),
         notesRoute: (context) => const NotesView(),
-        newNoteRoute:(context) => const NewNoteView(),
+        createUpdateNoteRoute: (context) => const CreateUpdateNoteView(),
         verifyEmailRoute: (context) => const VerifyEmailView(),
-        remindersRoute:(context) => const RemindersView(),
-        createNewLabelRoute:(context) => const CreateNewLabel(),
-        archiveRoute:(context) => const ArchiveView(),
-        trashRoute:(context) => const TrashView(),
-        settingsRoute:(context) => const SettingsView(),
+        remindersRoute: (context) => const RemindersView(),
+        createNewLabelRoute: (context) => const CreateNewLabel(),
+        archiveRoute: (context) => const ArchiveView(),
+        trashRoute: (context) => const TrashView(),
+        settingsRoute: (context) => const SettingsView(),
       },
     ),
   );

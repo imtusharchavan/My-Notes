@@ -84,6 +84,12 @@ class _NotesViewState extends State<NotesView> {
                           onDeleteNote: (note) async {
                             await _notesService.deleteNote(id: note.id);
                           },
+                          onTap: (note) {
+                            Navigator.of(context).pushNamed(
+                              createUpdateNoteRoute,
+                              arguments: note,
+                            );
+                          },
                         );
                       } else {
                         return const CircularProgressIndicator();
@@ -101,7 +107,7 @@ class _NotesViewState extends State<NotesView> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushNamed(newNoteRoute);
+          Navigator.of(context).pushNamed(createUpdateNoteRoute);
         },
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(18))),
