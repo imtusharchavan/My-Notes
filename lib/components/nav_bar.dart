@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mynotes/constants/routes.dart';
-import 'package:mynotes/services/auth/auth_service.dart';
+import 'package:mynotes/services/auth/bloc/auth_bloc.dart';
+import 'package:mynotes/services/auth/bloc/auth_event.dart';
 import 'package:mynotes/utilities/dialogs/logout_dialog.dart';
 
 class NabBar extends StatelessWidget {
@@ -70,15 +72,10 @@ class NabBar extends StatelessWidget {
             leading: const Icon(Icons.logout_outlined),
             title: const Text('Log out'),
             onTap: () async {
-              Navigator.of(context).pop();
-              // final shouldLogout = await showLogOutDialog(context);
-              // if (shouldLogout) {
-              //   await AuthService.firebase().logOut();
-              //   Navigator.of(context).pushNamedAndRemoveUntil(
-              //     loginRoute,
-              //     (_) => false,
-              //   );
-              // }
+              final shouldLogout = await showLogOutDialog(context);
+              if (shouldLogout) {
+                context.read<AuthBloc>().add(const AuthEventLogOut());
+              }
             },
           ),
         ],
