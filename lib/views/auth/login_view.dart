@@ -47,55 +47,68 @@ class _LoginViewState extends State<LoginView> {
       },
       child: Scaffold(
         body: SafeArea(
-          child: Column(
-            children: [
-              TextField(
-                controller: _email,
-                keyboardType: TextInputType.emailAddress,
-                enableSuggestions: false,
-                autocorrect: false,
-                decoration: const InputDecoration(
-                  hintText: 'Email',
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                TextField(
+                  autofocus: true,
+                  controller: _email,
+                  keyboardType: TextInputType.emailAddress,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  decoration: const InputDecoration(
+                    hintText: 'Email',
+                  ),
                 ),
-              ),
-              TextField(
-                controller: _password,
-                obscureText: true,
-                enableSuggestions: false,
-                autocorrect: false,
-                decoration: const InputDecoration(
-                  hintText: 'Password',
+                TextField(
+                  controller: _password,
+                  obscureText: true,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  decoration: const InputDecoration(
+                    hintText: 'Password',
+                  ),
                 ),
-              ),
-              const SizedBox(height: 25),
-              FilledButton(
-                style: FilledButton.styleFrom(
-                    backgroundColor: Colors.blueGrey.shade800),
-                onPressed: () async {
-                  final email = _email.text;
-                  final password = _password.text;
-                  context.read<AuthBloc>().add(
-                        AuthEventLogIn(
-                          email,
-                          password,
-                        ),
-                      );
-                },
-                child: const Text(
-                  'Login',
-                  style: TextStyle(color: Colors.white),
+                const SizedBox(height: 25),
+                FilledButton(
+                  style: FilledButton.styleFrom(
+                      backgroundColor: Colors.blueGrey.shade800),
+                  onPressed: () async {
+                    final email = _email.text;
+                    final password = _password.text;
+                    context.read<AuthBloc>().add(
+                          AuthEventLogIn(
+                            email,
+                            password,
+                          ),
+                        );
+                  },
+                  child: const Text(
+                    'Login',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
-              ),
-              TextButton(
-                onPressed: () {
-                  context.read<AuthBloc>().add(
-                        const AuthEventShouldRegister(),
-                      );
-                },
-                child: Text("Don't have an account?",
-                    style: TextStyle(color: Colors.blue.shade700)),
-              ),
-            ],
+                TextButton(
+                  onPressed: () {
+                    context.read<AuthBloc>().add(
+                          const AuthEventForgotPassword(),
+                        );
+                  },
+                  child: Text("Forgot password",
+                      style: TextStyle(color: Colors.blue.shade700)),
+                ),
+                TextButton(
+                  onPressed: () {
+                    context.read<AuthBloc>().add(
+                          const AuthEventShouldRegister(),
+                        );
+                  },
+                  child: Text("Don't have an account?",
+                      style: TextStyle(color: Colors.blue.shade700)),
+                ),
+              ],
+            ),
           ),
         ),
       ),
