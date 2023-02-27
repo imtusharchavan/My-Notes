@@ -48,60 +48,62 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
       child: Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              const SizedBox(height: 50),
-              const Text(
-                  'Please enter your email address. We will send you a link to reset your password'),
-              const SizedBox(height: 50),
-              TextField(
-                keyboardType: TextInputType.emailAddress,
-                autocorrect: false,
-                autofocus: true,
-                controller: _controller,
-                decoration: const InputDecoration(hintText: 'Email'),
-              ),
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.only(left: 200),
-                child: Row(
-                  children: [
-                    
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: FilledButton(
-                        style: FilledButton.styleFrom(
-                            backgroundColor: Colors.blueGrey.shade800),
-                        onPressed: () {
-                          context.read<AuthBloc>().add(const AuthEventLogOut());
-                        },
-                        child: const Text(
-                          'Cancle',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: FilledButton(
-                        style: FilledButton.styleFrom(
-                            backgroundColor: Colors.blueGrey.shade800),
-                        onPressed: () {
-                          final email = _controller.text;
-                          context
-                              .read<AuthBloc>()
-                              .add(AuthEventForgotPassword(email: email));
-                        },
-                        child: const Text(
-                          'Send',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(height: 50),
+                const Text(
+                    'Please enter your email address. We will send you a link to reset your password'),
+                const SizedBox(height: 50),
+                TextField(
+                  keyboardType: TextInputType.emailAddress,
+                  autocorrect: false,
+                  autofocus: true,
+                  controller: _controller,
+                  decoration: const InputDecoration(hintText: 'Email'),
                 ),
-              ),
-            ],
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.only(left: 200),
+                  child: Row(
+                    children: [
+                      
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: FilledButton(
+                          style: FilledButton.styleFrom(
+                              backgroundColor: Colors.blueGrey.shade800),
+                          onPressed: () {
+                            context.read<AuthBloc>().add(const AuthEventLogOut());
+                          },
+                          child: const Text(
+                            'Cancle',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: FilledButton(
+                          style: FilledButton.styleFrom(
+                              backgroundColor: Colors.blueGrey.shade800),
+                          onPressed: () {
+                            final email = _controller.text;
+                            context
+                                .read<AuthBloc>()
+                                .add(AuthEventForgotPassword(email: email));
+                          },
+                          child: const Text(
+                            'Send',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

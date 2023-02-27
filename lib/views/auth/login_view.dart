@@ -47,66 +47,178 @@ class _LoginViewState extends State<LoginView> {
       },
       child: Scaffold(
         body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
+          child: SingleChildScrollView(
             child: Column(
               children: [
-                TextField(
-                  autofocus: true,
-                  controller: _email,
-                  keyboardType: TextInputType.emailAddress,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  decoration: const InputDecoration(
-                    hintText: 'Email',
+                const SizedBox(height: 50),
+                Padding(
+                  padding: const EdgeInsets.only(left: 30),
+                  child: Row(
+                    children: const [
+                      Text(
+                        'Login',
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                TextField(
-                  controller: _password,
-                  obscureText: true,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  decoration: const InputDecoration(
-                    hintText: 'Password',
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.only(left: 30),
+                  child: Row(
+                    children: const [
+                      Text("Welcome back! Please enter your details"),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 25),
-                FilledButton(
-                  style: FilledButton.styleFrom(
-                      backgroundColor: Colors.blueGrey.shade800),
-                  onPressed: () async {
-                    final email = _email.text;
-                    final password = _password.text;
-                    context.read<AuthBloc>().add(
-                          AuthEventLogIn(
-                            email,
-                            password,
+                const SizedBox(height: 30),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black87),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: TextField(
+                        autofocus: true,
+                        controller: _email,
+                        keyboardType: TextInputType.emailAddress,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        decoration: const InputDecoration(
+                            hintText: 'Email', border: InputBorder.none),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 15),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black87),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: TextField(
+                        controller: _password,
+                        keyboardType: TextInputType.emailAddress,
+                        obscureText: true,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        decoration: const InputDecoration(
+                            hintText: 'Password', border: InputBorder.none),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 15),
+                Padding(
+                  padding: const EdgeInsets.only(right: 30),
+                  child: GestureDetector(
+                    onTap: () {
+                      context.read<AuthBloc>().add(
+                            const AuthEventForgotPassword(),
+                          );
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: const [
+                        Text(
+                          'Forgot password?',
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 30),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: GestureDetector(
+                    onTap: () async {
+                      final email = _email.text;
+                      final password = _password.text;
+                      context.read<AuthBloc>().add(
+                            AuthEventLogIn(
+                              email,
+                              password,
+                            ),
+                          );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.black87,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'Login',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
                           ),
-                        );
-                  },
-                  child: const Text(
-                    'Login',
-                    style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-                TextButton(
-                  onPressed: () {
-                    context.read<AuthBloc>().add(
-                          const AuthEventForgotPassword(),
-                        );
-                  },
-                  child: Text("Forgot password",
-                      style: TextStyle(color: Colors.blue.shade700)),
+                const SizedBox(height: 15),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: GestureDetector(
+                    onTap: () async {},
+                    child: Container(
+                      padding: const EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                        color: Colors.white12,
+                        border: Border.all(color: Colors.grey.shade400),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'Sign in with google',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-                TextButton(
-                  onPressed: () {
-                    context.read<AuthBloc>().add(
-                          const AuthEventShouldRegister(),
-                        );
-                  },
-                  child: Text("Don't have an account?",
-                      style: TextStyle(color: Colors.blue.shade700)),
-                ),
+                const SizedBox(height: 30),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Don't have an account? "),
+                      GestureDetector(
+                      onTap: () {
+                      context.read<AuthBloc>().add(
+                            const AuthEventShouldRegister(),
+                          );
+                    },
+                        child: const Text(
+                          'Register',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
           ),
@@ -115,3 +227,82 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 }
+
+
+// crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   const Text(
+//                     'Login',
+//                     style: TextStyle(
+//                       fontSize: 25,
+//                       fontWeight: FontWeight.bold,
+//                     ),
+//                   ),
+//                   const SizedBox(height: 20),
+//                   const Text("Don't have an account? Register"),
+//                   const SizedBox(height: 30),
+//                   TextField(
+//                     autofocus: true,
+//                     controller: _email,
+//                     keyboardType: TextInputType.emailAddress,
+//                     enableSuggestions: false,
+//                     autocorrect: false,
+//                     decoration: const InputDecoration(
+//                       hintText: 'Email',
+//                       border: OutlineInputBorder(
+//                           borderRadius: BorderRadius.all(Radius.circular(12))),
+//                     ),
+//                   ),
+//                   const SizedBox(height: 20),
+//                   TextField(
+//                     controller: _password,
+//                     obscureText: true,
+//                     enableSuggestions: false,
+//                     autocorrect: false,
+//                     decoration: const InputDecoration(
+//                       hintText: 'Password',
+//                       border: OutlineInputBorder(
+//                           borderRadius: BorderRadius.all(Radius.circular(12))),
+//                     ),
+//                   ),
+//                   const SizedBox(height: 25),
+//                   FilledButton(
+//                     style: FilledButton.styleFrom(
+//                       shape: const RoundedRectangleBorder(
+//                           borderRadius: BorderRadius.all(Radius.circular(12))),
+//                       backgroundColor: Colors.blueGrey.shade800,
+//                     ),
+                    // onPressed: () async {
+                    //   final email = _email.text;
+                    //   final password = _password.text;
+                    //   context.read<AuthBloc>().add(
+                    //         AuthEventLogIn(
+                    //           email,
+                    //           password,
+                    //         ),
+                    //       );
+                    // },
+//                     child: const Text(
+//                       'Login',
+//                       style: TextStyle(color: Colors.white),
+//                     ),
+//                   ),
+//                   TextButton(
+                    // onPressed: () {
+                    //   context.read<AuthBloc>().add(
+                    //         const AuthEventForgotPassword(),
+                    //       );
+                    // },
+//                     child: Text("Forgot password",
+//                         style: TextStyle(color: Colors.blue.shade700)),
+//                   ),
+//                   TextButton(
+                    // onPressed: () {
+                    //   context.read<AuthBloc>().add(
+                    //         const AuthEventShouldRegister(),
+                    //       );
+                    // },
+//                     child: Text("Don't have an account?",
+//                         style: TextStyle(color: Colors.blue.shade700)),
+//                   ),
+//                 ],
