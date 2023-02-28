@@ -46,60 +46,131 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         }
       },
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
+        body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
               children: [
                 const SizedBox(height: 50),
-                const Text(
-                    'Please enter your email address. We will send you a link to reset your password'),
-                const SizedBox(height: 50),
-                TextField(
-                  keyboardType: TextInputType.emailAddress,
-                  autocorrect: false,
-                  autofocus: true,
-                  controller: _controller,
-                  decoration: const InputDecoration(hintText: 'Email'),
-                ),
-                const SizedBox(height: 20),
                 Padding(
-                  padding: const EdgeInsets.only(left: 200),
+                  padding: const EdgeInsets.only(left: 30),
                   child: Row(
-                    children: [
-                      
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: FilledButton(
-                          style: FilledButton.styleFrom(
-                              backgroundColor: Colors.blueGrey.shade800),
-                          onPressed: () {
-                            context.read<AuthBloc>().add(const AuthEventLogOut());
-                          },
-                          child: const Text(
-                            'Cancle',
-                            style: TextStyle(color: Colors.white),
-                          ),
+                    children: const [
+                      Text(
+                        'Forgot',
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: FilledButton(
-                          style: FilledButton.styleFrom(
-                              backgroundColor: Colors.blueGrey.shade800),
-                          onPressed: () {
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 30),
+                  child: Row(
+                    children: const [
+                      Text(
+                        'Password?',
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.only(left: 30),
+                  child: Row(
+                    children: const [
+                      Text('Please enter your email address.'),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 30),
+                  child: Row(
+                    children: const [
+                      Text('We will send you a link to reset your password'),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 30),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black87),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: TextField(
+                        controller: _controller,
+                        keyboardType: TextInputType.emailAddress,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        decoration: const InputDecoration(
+                            hintText: 'Email', border: InputBorder.none),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 30),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: GestureDetector(
+                    onTap: () {
                             final email = _controller.text;
                             context
                                 .read<AuthBloc>()
                                 .add(AuthEventForgotPassword(email: email));
                           },
-                          child: const Text(
-                            'Send',
-                            style: TextStyle(color: Colors.white),
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.black87,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'Send',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
                           ),
                         ),
                       ),
-                    ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: GestureDetector(
+                    onTap: () async {
+                      context.read<AuthBloc>().add(const AuthEventLogOut());
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                        color: Colors.white12,
+                        border: Border.all(color: Colors.grey.shade400),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'Cancle',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ],
