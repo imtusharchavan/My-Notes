@@ -4,6 +4,7 @@ import 'package:mynotes/constants/routes.dart';
 import 'package:mynotes/services/auth/auth_service.dart';
 import 'package:mynotes/services/cloud/cloud_note.dart';
 import 'package:mynotes/services/cloud/firebase_cloud_storage.dart';
+import 'package:mynotes/views/notes/notes_grid_view.dart';
 import 'package:mynotes/views/notes/notes_list_view.dart';
 
 class NotesView extends StatefulWidget {
@@ -23,6 +24,8 @@ class _NotesViewState extends State<NotesView> {
     super.initState();
   }
 
+  var viewType = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,11 +44,52 @@ class _NotesViewState extends State<NotesView> {
             ),
             actions: [
               IconButton(
-                  onPressed: () {}, icon: const Icon(Icons.grid_view_outlined)),
+                onPressed: () {
+                  setState(() {
+                    if (viewType == 0) {
+                        viewType = 1;
+                      } else {
+                        viewType = 0;
+                      }
+                  });
+                },
+                icon: viewType == 0 ? const Icon(Icons.grid_view_outlined) : const Icon(Icons.list_outlined)
+              ),
             ],
           ),
         ],
-        body: StreamBuilder(
+        body:
+        viewType == 0
+        ? StreamBuilder(
+          stream: _notesService.allNotes(ownerUserId: userId),
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+              case ConnectionState.active:
+                if (snapshot.hasData) {
+                  final allNotes = snapshot.data as Iterable<CloudNote>;
+                  return NotesGridView(
+                    notes: allNotes,
+                    onDeleteNote: (note) async {
+                      await _notesService.deleteNote(
+                          documentId: note.documentId);
+                    },
+                    onTap: (note) {
+                      Navigator.of(context).pushNamed(
+                        createUpdateNoteRoute,
+                        arguments: note,
+                      );
+                    },
+                  );
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+              default:
+                return const Center(child: CircularProgressIndicator());
+            }
+          },
+        )
+        : StreamBuilder(
           stream: _notesService.allNotes(ownerUserId: userId),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
