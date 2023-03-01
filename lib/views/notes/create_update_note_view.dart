@@ -109,15 +109,10 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
             icon: const Icon(Icons.archive_outlined),
           ),
           IconButton(
-            onPressed: () async {
-              final text = _textController.text;
-              if (_note == null || text.isEmpty) {
-                await showCannotShareEmptyNoteDialog(context);
-              } else {
-                Share.share(text);
-              }
-            },
-            icon: const Icon(Icons.share_outlined),
+            onPressed: showBottomSheet,
+            icon: const Icon(
+              Icons.more_vert_outlined,
+            ),
           ),
         ],
       ),
@@ -147,31 +142,31 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
           }
         },
       ),
-      bottomNavigationBar: BottomAppBar(
-        elevation: 0,
-        color: Colors.white10,
-        child: Row(
-          children: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.add_box_outlined),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.palette_outlined),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 267),
-              child: IconButton(
-                onPressed: showBottomSheet,
-                icon: const Icon(
-                  Icons.more_vert_outlined,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+      // bottomNavigationBar: BottomAppBar(
+      //   elevation: 0,
+      //   color: Colors.white10,
+      //   child: Row(
+      //     children: [
+      //       IconButton(
+      //         onPressed: () {},
+      //         icon: const Icon(Icons.add_box_outlined),
+      //       ),
+      //       IconButton(
+      //         onPressed: () {},
+      //         icon: const Icon(Icons.palette_outlined),
+      //       ),
+      //       Padding(
+      //         padding: const EdgeInsets.only(left: 267),
+      //         child: IconButton(
+      //           onPressed: showBottomSheet,
+      //           icon: const Icon(
+      //             Icons.more_vert_outlined,
+      //           ),
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
     );
   }
 
