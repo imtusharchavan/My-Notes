@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mynotes/services/cloud/cloud_note.dart';
-import 'package:mynotes/utilities/dialogs/delete_dialog.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 typedef NoteCallBack = void Function(CloudNote note);
 
@@ -20,7 +18,9 @@ class NotesGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      physics: const BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(
+        decelerationRate: ScrollDecelerationRate.fast,
+      ),
       padding: const EdgeInsets.all(5.0),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
       itemCount: notes.length,
@@ -49,15 +49,6 @@ class NotesGridView extends StatelessWidget {
                 ),
               ),
             ),
-            // trailing: IconButton(
-            //   onPressed: () async {
-            //     final shouldDelete = await showDeleteDialog(context);
-            //     if (shouldDelete) {
-            //       onDeleteNote(note);
-            //     }
-            //   },
-            //   icon: const Icon(Icons.delete),
-            // ),
           ),
         );
       },

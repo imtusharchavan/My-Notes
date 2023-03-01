@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mynotes/services/auth/auth_service.dart';
 import 'package:mynotes/utilities/dialogs/cannot_share_empty_note_dialog.dart';
+import 'package:mynotes/utilities/dialogs/delete_dialog.dart';
 import 'package:mynotes/utilities/generics/get_arguments.dart';
 import 'package:mynotes/services/cloud/cloud_note.dart';
 import 'package:mynotes/services/cloud/firebase_cloud_storage.dart';
@@ -137,6 +138,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Note',
+                    hintStyle: TextStyle(fontSize: 16)
                   ),
                 ),
               );
@@ -181,7 +183,10 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
             ListTile(
               leading: const Icon(Icons.delete_outlined),
               title: const Text('Delete'),
-              onTap: () async {},
+              onTap: () async {
+                final shouldDelete = await showDeleteDialog(context);
+                if (shouldDelete) {}
+              },
             ),
             ListTile(
               leading: const Icon(Icons.share_outlined),

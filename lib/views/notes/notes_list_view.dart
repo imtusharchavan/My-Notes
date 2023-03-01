@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mynotes/services/cloud/cloud_note.dart';
-import 'package:mynotes/utilities/dialogs/delete_dialog.dart';
 
 typedef NoteCallBack = void Function(CloudNote note);
 
@@ -19,7 +18,9 @@ class NotesListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      physics: const BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(
+        decelerationRate: ScrollDecelerationRate.fast,
+      ),
       padding: const EdgeInsets.all(5.0),
       itemCount: notes.length,
       itemBuilder: (context, index) {
@@ -38,7 +39,7 @@ class NotesListView extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Text(
                 note.text,
-                maxLines: 10,
+                maxLines: 11,
                 softWrap: true,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
@@ -54,7 +55,7 @@ class NotesListView extends StatelessWidget {
             //       onDeleteNote(note);
             //     }
             //   },
-            //   icon: const Icon(Icons.delete),
+            //   icon: const Icon(Icons.delete_outlined),
             // ),
           ),
         );

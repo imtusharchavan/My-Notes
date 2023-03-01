@@ -35,13 +35,6 @@ class _NotesViewState extends State<NotesView> {
           SliverAppBar(
             elevation: 0,
             backgroundColor: Colors.white10,
-            title: const Text(
-              'Notes',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-              ),
-            ),
             actions: [
               IconButton(
                 onPressed: () {
