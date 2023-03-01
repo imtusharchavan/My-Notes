@@ -68,7 +68,7 @@ class _NotesViewState extends State<NotesView> {
               case ConnectionState.active:
                 if (snapshot.hasData) {
                   final allNotes = snapshot.data as Iterable<CloudNote>;
-                  return NotesGridView(
+                  return NotesListView(
                     notes: allNotes,
                     onDeleteNote: (note) async {
                       await _notesService.deleteNote(
@@ -97,7 +97,7 @@ class _NotesViewState extends State<NotesView> {
               case ConnectionState.active:
                 if (snapshot.hasData) {
                   final allNotes = snapshot.data as Iterable<CloudNote>;
-                  return NotesListView(
+                  return NotesGridView(
                     notes: allNotes,
                     onDeleteNote: (note) async {
                       await _notesService.deleteNote(

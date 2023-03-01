@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mynotes/enums/menu_action.dart';
 import 'package:mynotes/services/auth/auth_service.dart';
 import 'package:mynotes/utilities/dialogs/cannot_share_empty_note_dialog.dart';
 import 'package:mynotes/utilities/generics/get_arguments.dart';
@@ -130,7 +129,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextField(
-                  // autofocus: true,
+                  autofocus: true,
                   controller: _textController,
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
@@ -161,29 +160,11 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 267),
-              child: PopupMenuButton<MenuAction>(
-                itemBuilder: (context) => [
-                  const PopupMenuItem(
-                    value: MenuAction.delete,
-                    child: Text('Delete'),
-                  ),
-                  const PopupMenuItem(
-                    value: MenuAction.send,
-                    child: Text('Send'),
-                  ),
-                ],
-                onSelected: (value) async {
-                  switch (value) {
-                    case MenuAction.delete:
-                    case MenuAction.send:
-                      final text = _textController.text;
-                      if (_note == null || text.isEmpty) {
-                        await showCannotShareEmptyNoteDialog(context);
-                      } else {
-                        Share.share(text);
-                      }
-                  }
-                },
+              child: IconButton(
+                onPressed: showBottomSheet,
+                icon: const Icon(
+                  Icons.more_vert_outlined,
+                ),
               ),
             ),
           ],
@@ -191,4 +172,30 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
       ),
     );
   }
+
+  void showBottomSheet() => showModalBottomSheet(
+        context: context,
+        builder: (context) => Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            ListTile(
+              leading: const Icon(Icons.delete_outlined),
+              title: const Text('Delete'),
+              onTap: () async {},
+            ),
+            ListTile(
+              leading: const Icon(Icons.share_outlined),
+              title: const Text('Send'),
+              onTap: () async {
+                final text = _textController.text;
+                if (_note == null || text.isEmpty) {
+                  await showCannotShareEmptyNoteDialog(context);
+                } else {
+                  Share.share(text);
+                }
+              },
+            )
+          ],
+        ),
+      );
 }
